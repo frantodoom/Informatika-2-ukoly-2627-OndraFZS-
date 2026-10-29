@@ -18,10 +18,10 @@ class Kniha:
     """
 
     def __init__(self, nazev: str, autor: str, pocet_stran: int, cena: float) -> None:
-        self._nazev: str = ""
-        self._autor: str = ""
-        self._pocet_stran: int = 1
-        self._cena: float = 0.0
+        self._nazev: str = nazev
+        self._autor: str = autor
+        self._pocet_stran: int = pocet_stran
+        self._cena: float = cena
 
         # TODO: Inicializujte atributy přes property settery pro zajištění validace
         pass
@@ -35,7 +35,11 @@ class Kniha:
     def nazev(self, hodnota: str) -> None:
         # TODO: Ověřte, že hodnota je neprázdný řetězec po oříznutí mezer (.strip()).
         # Pokud je prázdný, vyvolejte ValueError("Název nesmí být prázdný.")
-        pass
+        hodnota = hodnota.strip()
+        
+        if hodnota == "":
+            raise ValueError("Název nesmí být prázdný.")
+        self._nazev = hodnota
 
     @property
     def autor(self) -> str:
@@ -46,7 +50,10 @@ class Kniha:
     def autor(self, hodnota: str) -> None:
         # TODO: Ověřte, že hodnota je neprázdný řetězec po oříznutí mezer (.strip()).
         # Pokud je prázdný, vyvolejte ValueError("Autor nesmí být prázdný.")
-        pass
+        hodnota = hodnota.strip()
+        if hodnota == "":
+            raise ValueError("Autor nesmí být prázdný.")
+        self._autor = hodnota
 
     @property
     def pocet_stran(self) -> int:
@@ -57,7 +64,10 @@ class Kniha:
     def pocet_stran(self, hodnota: int) -> None:
         # TODO: Ověřte, že hodnota je > 0.
         # Pokud ne, vyvolejte ValueError("Počet stran musí být kladné číslo.")
-        pass
+        if hodnota > 0:
+            self._pocet_stran = hodnota
+        else:
+            raise ValueError("Počet stran musí být kladné číslo.")
 
     @property
     def cena(self) -> float:
@@ -68,7 +78,11 @@ class Kniha:
     def cena(self, hodnota: float) -> None:
         # TODO: Ověřte, že hodnota je >= 0.
         # Pokud ne, vyvolejte ValueError("Cena nesmí být záporná.")
-        pass
+        if hodnota >=0:
+            self._cena = hodnota
+        else:
+            raise ValueError("Cena nesmí být záporná.")
+
 
     def sleva(self, procento: float) -> None:
         """
@@ -77,7 +91,10 @@ class Kniha:
         Pokud procento není v rozsahu 0 až 100, vyvolejte ValueError("Sleva musí být v rozmezí 0 až 100 %.").
         """
         # TODO: Doplňte implementaci
-        pass
+        if 0<=procento<=100:
+            self._cena = self._cena - ((self._cena/100)*procento)
+            self._cena = round(self._cena,2)
+        
 
     def __str__(self) -> str:
         """
